@@ -22,4 +22,9 @@ public class SurvivorsGame extends PApplet {
 		// TODO Update the Game's state(s)
 		
 	}
+	
+	/* Main method */
+	public static void main(String[] args) {
+		PApplet.main("SurvivorsGame");
+	}
 }
