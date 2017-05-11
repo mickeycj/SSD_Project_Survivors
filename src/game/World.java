@@ -1,7 +1,6 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import base.Component;
 import processing.core.PApplet;
@@ -9,28 +8,32 @@ import processing.core.PApplet;
 public class World implements Component {
 
 	// TODO World's attributes
-	private PApplet display;
-	private Player player;
-	private ArrayList<Enemy> units;
-	private ArrayList<Enemy> eaten;
+	private PApplet pApplet;
 	
-	public static final Random random = new Random(System.currentTimeMillis());
+	private Player player;
+	private ArrayList<Enemy> enemies;
 	
 	// TODO Create an appropriate World constructor
-	public World (PApplet display){
-		this.display = display;
-		this.player = new Player(1, 16, this.display);
-		this.eaten = new ArrayList<>();
-		this.units = new ArrayList<>();
-		for (int i = 0 ; i < 5 ; i++){
-			this.units.add(randomEnemy(8, 32));
+	public World(PApplet pApplet) {
+		this.pApplet = pApplet;
+		this.player = player;
+		this.enemies = new ArrayList<>();
+		for (int i = 0; i < player.getLevel()*10; i++) {
+			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet ) );
 		}
-
 	}
 	
 	// TODO Methods for controlling each 'components/units' within the world
-	private Enemy randomEnemy(int min, int max) {
-		return new Enemy(this.display.random((int)Math.random()*100), this.display.random(this.display),this.display.random(this.display.width), this.display.random(this.display.height), this.display.random(min, max), this.display);
+	public boolean isPlayerWon() {
+		return false;
+	}
+	
+	public boolean tooLowNumEnemies() {
+		return enemies.size() < player.getLevel()*10; 
+	}
+	
+	public void addEnemy() {
+		enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet ));
 	}
 	
 	@Override

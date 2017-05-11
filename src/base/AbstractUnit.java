@@ -13,12 +13,11 @@ public abstract class AbstractUnit implements Unit {
 	protected float radius;
 	protected int level;
 	
-	protected AbstractUnit(int level, float x, float y, float r, PApplet display) {
+	protected AbstractUnit(float x, float y, float r, PApplet display) {
 		this.display = display;
 		this.position = new PVector(x, y);
 		this.velocity = new PVector();
 		this.radius = r;
-		this.level = level;
 	}
 	
 	@Override
