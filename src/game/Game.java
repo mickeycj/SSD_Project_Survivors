@@ -12,7 +12,6 @@ public class Game {
 		this. pApplet = pApplet;
 	}
 	
-	
 	// TODO Update Game's state(s)
 	
 }
