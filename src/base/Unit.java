@@ -8,6 +8,8 @@ public interface Unit extends Component {
 	
 	float getRadius();
 	
+	int getLevel();
+	
 	boolean eat(Unit other);
 	
 	void update();
