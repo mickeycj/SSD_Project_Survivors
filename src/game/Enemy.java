@@ -2,6 +2,7 @@ package game;
 
 import base.AbstractUnit;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 public class Enemy extends AbstractUnit {
 
@@ -15,7 +16,9 @@ public class Enemy extends AbstractUnit {
 	@Override
 	public void update() {
 		// TODO Implement random A.I. for movements
-		
+		PVector newVelocity = new PVector((int)(Math.random()*300) - position.x, (int)(Math.random()*300) - position.y);
+		newVelocity.setMag(level);
+		velocity.lerp(newVelocity, .2f);
 		super.update();
 	}
 	
