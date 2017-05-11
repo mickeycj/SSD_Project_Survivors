@@ -11,12 +11,14 @@ public abstract class AbstractUnit implements Unit {
 	protected PVector velocity;
 	
 	protected float radius;
+	protected int level;
 	
-	protected AbstractUnit(float x, float y, float r, PApplet display) {
+	protected AbstractUnit(int level, float x, float y, float r, PApplet display) {
 		this.display = display;
 		this.position = new PVector(x, y);
 		this.velocity = new PVector();
 		this.radius = r;
+		this.level = level;
 	}
 	
 	@Override
@@ -27,6 +29,11 @@ public abstract class AbstractUnit implements Unit {
 	@Override
 	public float getRadius() {
 		return radius;
+	}
+	
+	@Override
+	public int getLevel() {
+		return level;
 	}
 	
 	@Override
