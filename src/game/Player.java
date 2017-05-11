@@ -17,7 +17,7 @@ public class Player extends AbstractUnit {
 	public void update() {
 		// TODO Implement player movement according to mouse input
 		PVector newVector = new PVector();
-		newVector.setMag(5);
+		newVector.setMag(1);
 		velocity.lerp(newVector, .5f);
 		super.update();
 	}

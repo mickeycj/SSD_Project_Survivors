@@ -1,9 +1,12 @@
+import game.Game;
+import game.World;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class SurvivorsGame extends PApplet {
 
 	// TODO Game object
-	
+	Game game;
 	
 	@Override
 	public void settings() {
@@ -13,7 +16,6 @@ public class SurvivorsGame extends PApplet {
 	@Override
 	public void setup() {
 		// TODO Initialize a new Game
-		
 	}
 	
 	@Override
