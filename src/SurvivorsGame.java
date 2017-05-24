@@ -1,5 +1,7 @@
 import game.Game;
+import game.World;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class SurvivorsGame extends PApplet {
 
