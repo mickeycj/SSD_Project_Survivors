@@ -40,6 +40,7 @@ public abstract class AbstractUnit implements Unit {
 		float dist = PVector.dist(position, other.getPosition());
 		if (dist < radius * .6f + other.getRadius() && radius > other.getRadius()) {
 			radius += .15f * other.getRadius();
+			return true;
 		}
 		return false;
 	}
