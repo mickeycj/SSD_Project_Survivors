@@ -12,11 +12,12 @@ public class World implements Component {
 	
 	private Player player;
 	private ArrayList<Enemy> enemies;
+	private ArrayList<Enemy> eatenEnemies;
 	
 	// TODO Create an appropriate World constructor
 	public World(PApplet pApplet) {
 		this.pApplet = pApplet;
-		this.player = player;
+		this.player = new Player(pApplet);
 		this.enemies = new ArrayList<>();
 		for (int i = 0; i < player.getLevel()*10; i++) {
 			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet ) );
@@ -24,8 +25,8 @@ public class World implements Component {
 	}
 	
 	// TODO Methods for controlling each 'components/units' within the world
-	public boolean isPlayerWon() {
-		return false;
+	public boolean isPlayerAlive() {
+		return player.getAlivePlayer();
 	}
 	
 	public boolean tooLowNumEnemies() {
@@ -36,9 +37,39 @@ public class World implements Component {
 		enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet ));
 	}
 	
+	public void update() {
+		for(int i=0; i<enemies.size(); i++) {
+			Enemy enemy = enemies.get(i);
+			if(player.eat(enemy)) {
+				eatenEnemies.add(enemy);
+			}
+			else {
+				if(enemy.eat(player)) {
+					player.setAlivePlayer(false);
+				}
+				enemy.setDestination();
+				enemy.update();
+			}
+		}
+		enemies.removeAll(eatenEnemies);
+		eatenEnemies.clear();
+		player.update();
+	}
+	
+	public void restart() {
+		player.reset();
+		this.enemies.clear();
+		for (int i = 0; i < player.getLevel()*10; i++) {
+			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet ) );
+		}
+	}
+	
 	@Override
 	public void render() {
 		// TODO Render everything on this world
-		
+		player.render();
+		for (Enemy e : enemies) {
+			e.render();
+		}
 	}
 }
