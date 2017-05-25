@@ -18,7 +18,7 @@ public class SurvivorsGame extends PApplet {
 		size(1080, 640);
 		loadingScreen = loadImage("images/backgrounds/loading.png");
 		gameBackground = loadImage("images/backgrounds/SurvivorBG.png");
-		// gameOverScreen = loadImage("images/backgrounds/gameOver.png");
+		 gameOverScreen = loadImage("images/backgrounds/gameOver.png");
 		images = new ArrayList<>();
 		File file = new File("images/faces");
 		for (File f : file.listFiles()) {
@@ -44,6 +44,7 @@ public class SurvivorsGame extends PApplet {
 				g.update();
 			} else {
 				// TODO restart
+				image(gameOverScreen, width/2, height/2);
 			}
 		}
 	}

@@ -25,15 +25,15 @@ public abstract class AbstractUnit implements Unit {
 		this.radius = r;
 		this.level = l;
 		if (this.level == 1) {
-			this.color = Color.YELLOW.getRGB();
+			this.color = 0xFFE5E19C;
 		} else if (this.level == 2) {
-			this.color = Color.CYAN.getRGB();
+			this.color = 0xFF9BB37E;
 		} else if (this.level == 3) {
-			this.color = Color.PINK.getRGB();
+			this.color = 0xFF85ADAF;
 		} else if (this.level == 4) {
-			this.color = Color.GREEN.getRGB();
+			this.color = 0xFFB28077;
 		} else if (this.level == 5) {
-			this.color = Color.RED.getRGB();
+			this.color = 0xFF9B87AA;
 		}
 		this.image = image;
 	}
@@ -79,10 +79,7 @@ public abstract class AbstractUnit implements Unit {
 
 	@Override
 	public void render() {
-		display.stroke(color);
 		display.strokeWeight(1.5f);
-		display.noFill();
-		display.ellipse(position.x, position.y, radius * 2.5f, radius * 2.5f);
 		display.image(image, position.x, position.y, radius * 2, radius * 2);
 	}
 }

@@ -30,4 +30,12 @@ public class Enemy extends AbstractUnit {
 		velocity.lerp(newVelocity, .2f);
 		super.update();
 	}
+	
+	@Override
+	public void render() {
+		display.stroke(color);
+		display.noFill();
+		display.ellipse(position.x, position.y, radius * 2.5f, radius * 2.5f);
+		super.render();
+	}
 }

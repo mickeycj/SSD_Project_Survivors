@@ -28,12 +28,12 @@ public class Player extends AbstractUnit {
 
 	public void levelUp() {
 		level++;
-		if (level == 1) {
-			color = Color.YELLOW.getRGB();
-		} else if (level == 2) {
-			color = Color.CYAN.getRGB();
-		} else if (level == 3) {
-			color = Color.PINK.getRGB();
+		if (this.level == 1) {
+			this.color = 0xFFE5E19C;
+		} else if (this.level == 2) {
+			this.color = 0xFF9BB37E;
+		} else if (this.level == 3) {
+			this.color = 0xFF85ADAF;
 		}
 	}
 
@@ -51,5 +51,13 @@ public class Player extends AbstractUnit {
 		radius = 16;
 		velocity = new PVector();
 		position = new PVector(display.width / 2, display.height / 2);
+	}
+	
+	@Override
+	public void render() {
+		display.stroke(color);
+		display.fill(color);
+		display.ellipse(position.x, position.y, radius * 2.5f, radius * 2.5f);
+		super.render();
 	}
 }
