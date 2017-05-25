@@ -13,8 +13,8 @@ public class Enemy extends AbstractUnit {
 	private PVector destination;
 	private PImage image;
 	
-	public Enemy(float x, float y, PApplet display, int level, PImage image) {
-		super(x, y, level*3.5f, display);
+	public Enemy(float x, float y, int level, PApplet display, PImage image) {
+		super(x, y, 15 + (level - 1) * 7.5f, level, display, image);
 		super.level = level;
 		this.image = image;
 		setDestination();

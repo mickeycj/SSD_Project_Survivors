@@ -1,5 +1,7 @@
 package base;
 
+import java.awt.Color;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -10,16 +12,30 @@ public abstract class AbstractUnit implements Unit {
 	
 	protected PVector position;
 	protected PVector velocity;
-	protected PImage images;
+	protected PImage image;
 	
 	protected float radius;
 	protected int level;
+	protected int color;
 	
-	protected AbstractUnit(float x, float y, float r, PApplet display) {
+	protected AbstractUnit(float x, float y, float r, int l, PApplet display, PImage image) {
 		this.display = display;
 		this.position = new PVector(x, y);
 		this.velocity = new PVector();
 		this.radius = r;
+		this.level = l;
+		if (level == 1) {
+            color = Color.YELLOW.getRGB();
+        } else if (level == 2) {
+            color = Color.CYAN.getRGB();
+        } else if (level == 3) {
+            color = Color.PINK.getRGB();
+        } else if (level == 4) {
+            color = Color.GREEN.getRGB();
+        } else if (level == 5) {
+            color = Color.RED.getRGB();
+        }
+        this.image = image;
 	}
 	
 	@Override
@@ -41,7 +57,7 @@ public abstract class AbstractUnit implements Unit {
 	public boolean eat(Unit other) {
 		float dist = PVector.dist(position, other.getPosition());
 		if (dist < radius * .8f + other.getRadius() && radius > other.getRadius()) {
-			radius += .15f * other.getRadius();
+			radius += .05f * other.getRadius();
 			return true;
 		}
 		return false;
@@ -54,6 +70,10 @@ public abstract class AbstractUnit implements Unit {
 	
 	@Override
 	public void render() {
-		display.ellipse(position.x, position.y, radius * 2, radius * 2);
+		display.stroke(color);
+        display.strokeWeight(1.5f);
+        display.noFill();
+        display.ellipse(position.x, position.y, radius * 2.5f, radius * 2.5f);
+        display.image(image, position.x, position.y, radius * 2, radius * 2);
 	}
 }

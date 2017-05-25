@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Color;
+
 import base.AbstractUnit;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -13,7 +15,7 @@ public class Player extends AbstractUnit {
 	private int eatCount;
 	
 	public Player(PApplet display, PImage image) {
-		super(display.width/2, display.height/2, 16, display);
+		super(display.width/2, display.height/2, 16, 1, display, image);
 		level = 1;
 		alivePlayer = true;
 		this.image = image;
@@ -28,6 +30,17 @@ public class Player extends AbstractUnit {
 		velocity.lerp(newVector, .5f);
 		super.update();
 	}
+	
+	public void levelUp() {
+        level++;
+        if (level == 1) {
+            color = Color.YELLOW.getRGB();
+        } else if (level == 2) {
+            color = Color.CYAN.getRGB();
+        } else if (level == 3) {
+            color = Color.PINK.getRGB();
+        }
+    }
 	
 	public void setAlivePlayer(boolean b) {
 		alivePlayer = b;
