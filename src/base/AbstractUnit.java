@@ -9,8 +9,8 @@ public abstract class AbstractUnit implements Unit {
 	protected final PApplet pApplet;
 	protected final PImage image;
 	
-	protected PVector position;
-	protected PVector velocity;
+	protected final PVector position;
+	protected final PVector velocity;
 	
 	protected float radius;
 	protected int level;

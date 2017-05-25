@@ -57,7 +57,7 @@ public class SurvivorsGame extends PApplet {
 			if (!game.isEnded()) {
 				game.update();
 			} else {
-				image(gameOverScreen, width/2, height/2);
+				image(gameOverScreen, width / 2, height / 2);
 			}
 			game.showStats();
 		}
