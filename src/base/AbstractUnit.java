@@ -8,14 +8,15 @@ public abstract class AbstractUnit implements Unit {
 
 	protected final PApplet pApplet;
 	protected final PImage image;
-
+	
 	protected PVector position;
 	protected PVector velocity;
-
+	
 	protected float radius;
 	protected int level;
+	protected int value;
 	protected int color;
-
+	
 	protected AbstractUnit(float x, float y, float r, int l, PApplet pApplet, PImage image) {
 		this.pApplet = pApplet;
 		this.image = image;
@@ -25,20 +26,25 @@ public abstract class AbstractUnit implements Unit {
 		this.level = l;
 		this.color = 0xFFE5E19C;
 	}
-
+	
 	@Override
 	public PVector getPosition() {
 		return position;
 	}
-
+	
 	@Override
 	public float getRadius() {
 		return radius;
 	}
-
+	
 	@Override
 	public int getLevel() {
 		return level;
+	}
+	
+	@Override
+	public int getValue() {
+		return value;
 	}
 	
 	@Override
@@ -46,7 +52,7 @@ public abstract class AbstractUnit implements Unit {
 		position.x = x;
 		position.y = y;
 	}
-
+	
 	@Override
 	public boolean eat(Unit other) {
 		float dist = PVector.dist(position, other.getPosition());
@@ -59,14 +65,11 @@ public abstract class AbstractUnit implements Unit {
 	
 	@Override
 	public void reset() {
-		position.x = pApplet.width / 2;
-		position.y = pApplet.height / 2 + 61.5f;
 		velocity.mult(0);
 		level = 1;
-		radius = 16;
 		color = 0xFFE5E19C;
 	}
-
+	
 	@Override
 	public void update() {
 		position.add(velocity);
@@ -80,7 +83,7 @@ public abstract class AbstractUnit implements Unit {
 			position.x = pApplet.width - radius;
 		}
 	}
-
+	
 	@Override
 	public void render() {
 		pApplet.stroke(color);

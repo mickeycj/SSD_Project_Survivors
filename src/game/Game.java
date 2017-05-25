@@ -2,7 +2,8 @@ package game;
 
 import java.util.ArrayList;
 
-import processing.core.*;
+import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Game {
 
@@ -23,6 +24,22 @@ public class Game {
 	
 	public boolean isEnded() {
 		return !world.isPlayerAlive();
+	}
+	
+	public void showStats() {
+		if (!isEnded()) {
+			pApplet.fill(0xFFFFFFFF);
+			pApplet.textSize(27);
+			pApplet.text(world.getPlayerLevel(), 275, 44);
+			pApplet.textSize(23);
+			pApplet.text(world.getPlayerScore(), 251, 74);
+			pApplet.text(world.getHighScore(), 313, 102);
+		} else {
+			pApplet.fill(0xFF666666);
+			pApplet.textSize(35);
+			pApplet.text(world.getPlayerScore(), 805, 378);
+			pApplet.text(world.getHighScore(), 896, 415);
+		}
 	}
 	
 	public void start() {

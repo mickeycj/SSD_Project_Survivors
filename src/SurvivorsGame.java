@@ -1,8 +1,13 @@
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import game.*;
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 
 public class SurvivorsGame extends PApplet {
@@ -17,11 +22,11 @@ public class SurvivorsGame extends PApplet {
 	@Override
 	public void settings() {
 		size(1080, 640);
-		startScreen = loadImage("images/backgrounds/start.png");
-		background = loadImage("images/backgrounds/background.png");
-		gameOverScreen = loadImage("images/backgrounds/over.png");
+		startScreen = loadImage("res/images/backgrounds/start.png");
+		background = loadImage("res/images/backgrounds/background.png");
+		gameOverScreen = loadImage("res/images/backgrounds/over.png");
 		images = new ArrayList<>();
-		File directory = new File("images/faces");
+		File directory = new File("res/images/faces");
 		for (File file : directory.listFiles()) {
 			if (file.getName().endsWith(".png")) {
 				if (file.getName().equals("0.png")) {
@@ -35,6 +40,11 @@ public class SurvivorsGame extends PApplet {
 	
 	@Override
 	public void setup() {
+		try {
+			textFont(new PFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("res/fonts/OCR")), true));
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
 		imageMode(CENTER);
 		image(startScreen, width / 2, height / 2);
 		game = new Game(this, images);
@@ -49,6 +59,7 @@ public class SurvivorsGame extends PApplet {
 			} else {
 				image(gameOverScreen, width/2, height/2);
 			}
+			game.showStats();
 		}
 	}
 	
