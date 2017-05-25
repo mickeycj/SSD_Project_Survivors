@@ -15,13 +15,14 @@ public abstract class AbstractUnit implements Unit {
 	protected float radius;
 	protected int level;
 	
-	protected AbstractUnit(float x, float y, float r, PApplet display, PImage image) {
-		this.display = display;
-		this.position = new PVector(x, y);
-		this.velocity = new PVector();
-		this.radius = r;
-		this.image = image;
-	}
+	protected AbstractUnit(float x, float y, float r, int l, PApplet display, PImage image) {
+        this.display = display;
+        this.position = new PVector(x, y);
+        this.velocity = new PVector();
+        this.radius = r;
+        this.level = l;
+        this.image = image;
+    }
 	
 	@Override
 	public PVector getPosition() {
