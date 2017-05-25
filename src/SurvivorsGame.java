@@ -12,11 +12,12 @@ public class SurvivorsGame extends PApplet {
 	
 	@Override
 	public void settings() {
-		size(600, 600);
+		size(1080, 640);
 	}
 	
 	@Override
 	public void setup() {
+		imageMode(CENTER);
 		// TODO Initialize a new Game
 		images = new ArrayList<>();
 		File file = new File("images");

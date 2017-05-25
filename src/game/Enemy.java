@@ -11,12 +11,10 @@ public class Enemy extends AbstractUnit {
 
 	// TODO Additional attributes (if any)
 	private PVector destination;
-	private PImage image;
 	
 	public Enemy(float x, float y, PApplet display, int level, PImage image) {
-		super(x, y, level*3.5f, display);
+		super(x, y, level*3.5f, display, image);
 		super.level = level;
-		this.image = image;
 		setDestination();
 	}
 	
@@ -31,17 +29,5 @@ public class Enemy extends AbstractUnit {
 		newVelocity.setMag(level);
 		velocity.lerp(newVelocity, .2f);
 		super.update();
-	}
-	
-	@Override
-	public void render() {
-		// TODO Render desired image
-		display.image(image, position.x, position.y);
-		
-		// Temporary rendering implementation for testing purposes
-		display.fill(255, 0, 0);
-		super.render();
-	}
-	
-	
+	}	
 }

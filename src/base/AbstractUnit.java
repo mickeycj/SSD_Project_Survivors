@@ -10,16 +10,17 @@ public abstract class AbstractUnit implements Unit {
 	
 	protected PVector position;
 	protected PVector velocity;
-	protected PImage images;
+	protected PImage image;
 	
 	protected float radius;
 	protected int level;
 	
-	protected AbstractUnit(float x, float y, float r, PApplet display) {
+	protected AbstractUnit(float x, float y, float r, PApplet display, PImage image) {
 		this.display = display;
 		this.position = new PVector(x, y);
 		this.velocity = new PVector();
 		this.radius = r;
+		this.image = image;
 	}
 	
 	@Override
@@ -41,7 +42,7 @@ public abstract class AbstractUnit implements Unit {
 	public boolean eat(Unit other) {
 		float dist = PVector.dist(position, other.getPosition());
 		if (dist < radius * .8f + other.getRadius() && radius > other.getRadius()) {
-			radius += .15f * other.getRadius();
+			radius += .05f * other.getRadius();
 			return true;
 		}
 		return false;
@@ -54,6 +55,6 @@ public abstract class AbstractUnit implements Unit {
 	
 	@Override
 	public void render() {
-		display.ellipse(position.x, position.y, radius * 2, radius * 2);
+		display.image(image, position.x, position.y, radius * 2, radius * 2);
 	}
 }

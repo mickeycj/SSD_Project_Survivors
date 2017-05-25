@@ -9,14 +9,12 @@ public class Player extends AbstractUnit {
 
 	// TODO Additional attributes (if any)
 	private boolean alivePlayer;
-	private PImage image;
 	private int eatCount;
 	
 	public Player(PApplet display, PImage image) {
-		super(display.width/2, display.height/2, 16, display);
+		super(display.width/2, display.height/2, 16, display, image);
 		level = 1;
 		alivePlayer = true;
-		this.image = image;
 		eatCount = 0;
 	}
 	
@@ -39,7 +37,7 @@ public class Player extends AbstractUnit {
   
 	public void setEatCount() {
 		eatCount++;
-		if(eatCount >= 10) {
+		if(eatCount >= 10 && level < 3) {
 			level++;
 			eatCount = 0;
 			System.out.println(level);
@@ -53,15 +51,5 @@ public class Player extends AbstractUnit {
 		radius = 16;
 		velocity = new PVector();
 		position = new PVector(display.width/2, display.height/2);
-	}
-	
-	@Override
-	public void render() {
-		// TODO Render desired image
-		display.image(image, position.x, position.y);
-
-		// Temporary rendering implementation for testing purposes
-		display.fill(255);
-		super.render();
 	}
 }
