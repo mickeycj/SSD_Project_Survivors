@@ -9,7 +9,7 @@ public class Game {
 
 	private final PApplet pApplet;
 	
-	private World world;
+	private final World world;
 	
 	private boolean started;
 	
