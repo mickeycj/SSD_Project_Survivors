@@ -32,7 +32,7 @@ public class World implements Component {
 			if (this.enemiesCount[level - 1] == this.enemiesLimit[0][level - 1]) {
 				level++;
 			}
-			this.enemies.add(new Enemy((float)(Math.random() * pApplet.width), (float)(Math.random() * pApplet.height), level, pApplet, images.get(randomEnemyImage(1, 19))));
+			this.enemies.add(new Enemy((float)(Math.random() * pApplet.width), (float)(123 + Math.random() * (pApplet.height - 123)), level, pApplet, images.get(randomEnemyImage(1, 19))));
 			this.enemiesCount[level - 1]++;
 		}
 	}
@@ -49,7 +49,7 @@ public class World implements Component {
 	public void addEnemy() {
 		for (int i = 1; i <= player.getLevel() + 2; i++) {
 			if (enemiesCount[i - 1] != enemiesLimit[player.getLevel() - 1][i - 1]) {
-				this.enemies.add(new Enemy((float)(Math.random() * pApplet.width), (float)(Math.random() * pApplet.height), i, pApplet, images.get(randomEnemyImage(1, 19))));
+				this.enemies.add(new Enemy((float)(Math.random() * pApplet.width), (float)(123 + Math.random() * (pApplet.height - 123)), i, pApplet, images.get(randomEnemyImage(1, 19))));
 				enemiesCount[i - 1]++;
 			}
 
@@ -89,7 +89,7 @@ public class World implements Component {
 			if (enemiesCount[level - 1] == enemiesLimit[0][level - 1]) {
 				level++;
 			}
-			enemies.add(new Enemy((float)(Math.random() * pApplet.width), (float)(Math.random() * pApplet.height), level, pApplet, images.get(randomEnemyImage(1, 19))));
+			enemies.add(new Enemy((float)(Math.random() * pApplet.width), (float)(123 + Math.random() * (pApplet.height - 123)), level, pApplet, images.get(randomEnemyImage(1, 19))));
 			enemiesCount[level - 1]++;
 		}
 	}

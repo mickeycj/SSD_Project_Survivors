@@ -66,6 +66,15 @@ public abstract class AbstractUnit implements Unit {
 	@Override
 	public void update() {
 		position.add(velocity);
+		if (position.y <= 123 + radius) {
+			position.y = 123 + radius;
+		} else if (position.y > display.height - radius) {
+			position.y = display.height - radius;
+		} else if (position.x < 0 + radius) {
+			position.x = radius;
+		} else if (position.x > display.width - radius) {
+			position.x = display.width - radius;
+		}
 	}
 
 	@Override
