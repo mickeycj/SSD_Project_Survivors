@@ -1,9 +1,10 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import base.Component;
-import processing.core.PApplet;
+import processing.core.*;
 
 public class World implements Component {
 
@@ -12,18 +13,20 @@ public class World implements Component {
 	
 	private Player player;
 	private ArrayList<Enemy> enemies;
+	private ArrayList<Enemy> eatenEnemies;
+	private ArrayList<PImage> images;
 	private final int[] enemiesLimit = { 5, 4, 3, 2, 1};
 	private final int[] enemiesCount;
 	private ArrayList<Enemy> eatenEnemies;
 	
 	// TODO Create an appropriate World constructor
-	public World(PApplet pApplet) {
+	public World(PApplet pApplet, ArrayList<PImage> images) {
 		this.pApplet = pApplet;
-		this.player = new Player(pApplet);
+		this.player = new Player(pApplet, images.get(0));
+		this.images = images;
 		this.enemies = new ArrayList<>();
 		this.enemiesCount = new int[5];
 		this.eatenEnemies = new ArrayList<>();
-		
 		int level = 1;
 		for (int i = 0; i < player.getLevel()*12; i++) {
 			if(enemiesCount[level - 1] == enemiesLimit[level - 1]) {
@@ -82,7 +85,7 @@ public class World implements Component {
 		player.reset();
 		this.enemies.clear();
 		for (int i = 0; i < player.getLevel()*10; i++) {
-			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, pApplet , 1) );
+			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, pApplet , 1, images.get(randomEnemyImage(1,20)) );
 		}
 	}
 	
@@ -93,5 +96,10 @@ public class World implements Component {
 		for (Enemy e : enemies) {
 			e.render();
 		}
+	}
+	
+	public int randomEnemyImage(int max, int min){
+		int number = min + (int)(Math.random() * ((max - min) + 1));		
+		return number;
 	}
 }

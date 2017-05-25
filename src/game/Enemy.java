@@ -1,17 +1,22 @@
 package game;
 
+import java.util.ArrayList;
+
 import base.AbstractUnit;
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 
 public class Enemy extends AbstractUnit {
 
 	// TODO Additional attributes (if any)
 	private PVector destination;
+	private PImage image;
 	
-	public Enemy(float x, float y, PApplet display, int level) {
+	public Enemy(float x, float y, PApplet display, int level, PImage image) {
 		super(x, y, level*3.5f, display);
 		super.level = level;
+		this.image = image;
 		setDestination();
 	}
 	
@@ -31,9 +36,12 @@ public class Enemy extends AbstractUnit {
 	@Override
 	public void render() {
 		// TODO Render desired image
+		display.image(image, position.x, position.y);
 		
 		// Temporary rendering implementation for testing purposes
 		display.fill(255, 0, 0);
 		super.render();
 	}
+	
+	
 }

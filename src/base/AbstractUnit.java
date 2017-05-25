@@ -1,6 +1,7 @@
 package base;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 
 public abstract class AbstractUnit implements Unit {
@@ -9,6 +10,7 @@ public abstract class AbstractUnit implements Unit {
 	
 	protected PVector position;
 	protected PVector velocity;
+	protected PImage images;
 	
 	protected float radius;
 	protected int level;
