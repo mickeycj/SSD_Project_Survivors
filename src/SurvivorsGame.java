@@ -6,7 +6,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class SurvivorsGame extends PApplet {
-	ArrayList<PImage> images;
+	private ArrayList<PImage> images;
 	private int index;
 	private Game g;
 	
@@ -16,15 +16,15 @@ public class SurvivorsGame extends PApplet {
 	}
 	
 	@Override
-	public void setup(
+	public void setup() {
 		// TODO Initialize a new Game
-		images = new ArrayList<PImage>();
+		images = new ArrayList<>();
 		File file = new File("images");
 		for (File f : file.listFiles()){
 			if (f.getName().endsWith(".png"))
 				images.add(loadImage(f.getPath()));
 		}
-		g = new Game(this);
+		g = new Game(this, images);
 	}
 	
 	@Override
