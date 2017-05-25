@@ -10,7 +10,9 @@ public interface Unit extends Component {
 	
 	int getLevel();
 	
+	void setPosition(float x, float y);
+	
 	boolean eat(Unit other);
-
-	void update();
+	
+	void reset();
 }

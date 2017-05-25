@@ -8,42 +8,45 @@ import processing.core.PImage;
 public class SurvivorsGame extends PApplet {
 
 	private ArrayList<PImage> images;
-	private PImage loadingScreen;
-	private PImage gameBackground;
+	private PImage startScreen;
+	private PImage background;
 	private PImage gameOverScreen;
-	private Game g;
-
+	
+	private Game game;
+	
 	@Override
 	public void settings() {
 		size(1080, 640);
-		loadingScreen = loadImage("images/backgrounds/loading.png");
-		gameBackground = loadImage("images/backgrounds/SurvivorBG.png");
-		 gameOverScreen = loadImage("images/backgrounds/gameOver.png");
+		startScreen = loadImage("images/backgrounds/start.png");
+		background = loadImage("images/backgrounds/background.png");
+		gameOverScreen = loadImage("images/backgrounds/over.png");
 		images = new ArrayList<>();
-		File file = new File("images/faces");
-		for (File f : file.listFiles()) {
-			if (f.getName().endsWith(".png"))
-				images.add(loadImage(f.getPath()));
+		File directory = new File("images/faces");
+		for (File file : directory.listFiles()) {
+			if (file.getName().endsWith(".png")) {
+				if (file.getName().equals("0.png")) {
+					images.add(0, loadImage(file.getPath()));
+				} else {
+					images.add(loadImage(file.getPath()));
+				}
+			}
 		}
 	}
-
+	
 	@Override
 	public void setup() {
-		// TODO Initialize a new Game
 		imageMode(CENTER);
-		image(loadingScreen, width / 2, height / 2);
-		g = new Game(this, images);
+		image(startScreen, width / 2, height / 2);
+		game = new Game(this, images);
 	}
-
+	
 	@Override
 	public void draw() {
-		// TODO Update the Game's state(s)
-		if (g.isStarted()) {
-			image(gameBackground, width / 2, height / 2);
-			if (!g.isEnd()) {
-				g.update();
+		if (game.isStarted()) {
+			image(background, width / 2, height / 2);
+			if (!game.isEnded()) {
+				game.update();
 			} else {
-				// TODO restart
 				image(gameOverScreen, width/2, height/2);
 			}
 		}
@@ -51,15 +54,13 @@ public class SurvivorsGame extends PApplet {
 	
 	@Override
 	public void keyPressed() {
-		if (key == ' ') {
-			if (!g.isStarted()) {
-				g.start();
-			} else if (g.isEnd()) {
-				g.restart();
-			}
+		if (!game.isStarted()) {
+			game.start();
+		} else if (game.isEnded()) {
+			game.restart();
 		}
 	}
-
+	
 	/* Main method */
 	public static void main(String[] args) {
 		PApplet.main("SurvivorsGame");

@@ -6,40 +6,38 @@ import processing.core.*;
 
 public class Game {
 
-	// TODO Game's attributes
-	private PApplet pApplet;
+	private final PApplet pApplet;
+	
 	private World world;
 	
-	private boolean start;
-
-	// TODO Create an appropriate Game constructor
+	private boolean started;
+	
 	public Game(PApplet pApplet, ArrayList<PImage> images) {
 		this.pApplet = pApplet;
-		world = new World(pApplet, images);
-	}
-
-	// TODO Update Game's state(s)
-	public boolean isStarted() {
-		return start;
+		this.world = new World(pApplet, images);
 	}
 	
-	public boolean isEnd() {
+	public boolean isStarted() {
+		return started;
+	}
+	
+	public boolean isEnded() {
 		return !world.isPlayerAlive();
 	}
 	
 	public void start() {
-		start = true;
+		started = true;
 	}
-
+	
+    public void restart() {
+        world.reset();
+    }
+    
 	public void update() {
 		world.update();
 		world.render();
-		if (world.tooLowNumEnemies() && pApplet.frameCount % 300 == 0) {
-	         world.addEnemy();
+		if (world.isNumEnemiesTooLow() && pApplet.frameCount % 300 == 0) {
+	         world.addRandomEnemy();
         }
-    }
-   
-    public void restart() {
-        world.restart();
     }
 }

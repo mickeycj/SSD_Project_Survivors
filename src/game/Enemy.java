@@ -7,35 +7,60 @@ import processing.core.PVector;
 
 public class Enemy extends AbstractUnit {
 
-	// TODO Additional attributes (if any)
 	private PVector destination;
-
-	public Enemy(float x, float y, int level, PApplet display, PImage image) {
-		super(x, y, 15 + (level - 1) * 7.5f, level, display, image);
-		setDestination();
+	
+	public Enemy(PApplet pApplet, PImage image) {
+		super(0, 0, 0, 0, pApplet, image);
+		this.setDestination();
 	}
 
 	public void setDestination() {
-		destination = new PVector((int)(Math.random() * display.width), (int)(Math.random() * display.height));
+		destination = new PVector((int)(Math.random() * pApplet.width), (int)(Math.random() * pApplet.height));
+	}
+	
+	public void setRadiusAndSize(int lvl) {
+		radius = 15 + (lvl - 1) * 7.5f;
+		level = lvl;
+		switch (level) {
+			case 1 :
+				color = 0xFFE5E19C;
+				break;
+			case 2 :
+				color = 0xFF9BB37E;
+				break;
+			case 3 :
+				color = 0xFF85ADAF;
+				break;
+			case 4 :
+				color = 0xFFB28077;
+				break;
+			case 5 :
+				color = 0xFF9B87AA;
+				break;
+			default :
+		}
+	}
+	
+	@Override
+	public void reset() {
+		super.reset();
+		setDestination();
 	}
 
 	@Override
 	public void update() {
-		// TODO Implement random A.I. for movements
 		if (Math.abs(destination.x - position.x) < 1 && Math.abs(destination.y - position.y) < 1) {
 			setDestination();
 		}
-		PVector newVelocity = new PVector(destination.x - position.x, destination.y - position.y);
-		newVelocity.setMag(level);
-		velocity.lerp(newVelocity, .2f);
+		PVector newVector = new PVector(destination.x - position.x, destination.y - position.y);
+		newVector.setMag(level);
+		velocity.lerp(newVector, .2f);
 		super.update();
 	}
 	
 	@Override
 	public void render() {
-		display.stroke(color);
-		display.noFill();
-		display.ellipse(position.x, position.y, radius * 2.5f, radius * 2.5f);
+		pApplet.noFill();
 		super.render();
 	}
 }
