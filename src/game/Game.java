@@ -16,7 +16,15 @@ public class Game {
 	
 	// TODO Update Game's state(s)
 	public boolean isEnd() {
-		return world.isPlayerAlive();
+		return !world.isPlayerAlive();
+	}
+	
+	public void update() {
+		world.update();
+		world.render();
+		if(pApplet.frameCount % 600 == 0) {
+			world.addEnemy();
+		}
 	}
 	
 	public void restart() {

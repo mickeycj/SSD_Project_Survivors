@@ -5,7 +5,6 @@ import processing.core.PImage;
 
 public class SurvivorsGame extends PApplet {
 
-	// TODO Game object
 	private Game g;
 	
 	@Override
@@ -15,15 +14,18 @@ public class SurvivorsGame extends PApplet {
 	
 	@Override
 	public void setup() {
-		// TODO Initialize a new Game
 		g = new Game(this);
 	}
 	
 	@Override
 	public void draw() {
 		background(128);
-		// TODO Update the Game's state(s)
-		
+		if(!g.isEnd()) {
+			g.update();
+		}
+		else {
+			// TODO restart
+		}
 	}
 	
 	/* Main method */

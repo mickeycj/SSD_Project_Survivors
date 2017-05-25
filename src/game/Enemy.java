@@ -9,12 +9,14 @@ public class Enemy extends AbstractUnit {
 	// TODO Additional attributes (if any)
 	private PVector destination;
 	
-	public Enemy(float x, float y, float r, PApplet display) {
-		super(x, y, r, display);
+	public Enemy(float x, float y, PApplet display, int level) {
+		super(x, y, level*3.5f, display);
+		super.level = level;
+		setDestination();
 	}
 	
 	public void setDestination() {
-		destination = new PVector((int)(Math.random()*300), (int)(Math.random()*300));
+		destination = new PVector((int)(Math.random()*display.width), (int)(Math.random()*display.height));
 	}
 	
 	@Override
