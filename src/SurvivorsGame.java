@@ -1,12 +1,16 @@
-import game.Game;
-import game.World;
+import java.io.File;
+import java.util.ArrayList;
+
+import game.*;
 import processing.core.PApplet;
 import processing.core.PImage;
 
 public class SurvivorsGame extends PApplet {
-
 	// TODO Game object
 	Game game;
+	ArrayList<PImage> images;
+	private int index;
+	Enemy enemy;
 	
 	@Override
 	public void settings() {
@@ -16,13 +20,23 @@ public class SurvivorsGame extends PApplet {
 	@Override
 	public void setup() {
 		// TODO Initialize a new Game
+		images = new ArrayList<PImage>();
+		File file = new File("images");
+		for (File f : file.listFiles()){
+			if (f.getName().endsWith(".png"))
+				images.add(loadImage(f.getPath()));
+		}
 	}
 	
 	@Override
 	public void draw() {
 		background(128);
 		// TODO Update the Game's state(s)
+		imageMode(CENTER);
 		
+		if (frameCount % 60 == 0) {
+			index++;
+		}
 	}
 	
 	/* Main method */

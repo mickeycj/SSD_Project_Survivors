@@ -1,9 +1,10 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import base.Component;
-import processing.core.PApplet;
+import processing.core.*;
 
 public class World implements Component {
 
@@ -12,20 +13,24 @@ public class World implements Component {
 	
 	private Player player;
 	private ArrayList<Enemy> enemies;
+	private ArrayList<Enemy> eatenEnemies;
+	private ArrayList<PImage> images;
 	
 	// TODO Create an appropriate World constructor
-	public World(PApplet pApplet) {
+	public World(PApplet pApplet, ArrayList<PImage> images) {
 		this.pApplet = pApplet;
-		this.player = player;
+		this.player = new Player(pApplet, images.get(0));
 		this.enemies = new ArrayList<>();
+		this.images = images;
+		
 		for (int i = 0; i < player.getLevel()*10; i++) {
-			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet ) );
+			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet, images.get(randomEnemyImage(1,20)) ) );
 		}
 	}
 	
 	// TODO Methods for controlling each 'components/units' within the world
-	public boolean isPlayerWon() {
-		return false;
+	public boolean isPlayerAlive() {
+		return player.getAlivePlayer();
 	}
 	
 	public boolean tooLowNumEnemies() {
@@ -33,12 +38,47 @@ public class World implements Component {
 	}
 	
 	public void addEnemy() {
-		enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet ));
+		enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet, images.get(randomEnemyImage(1,20)) ) );
+	}
+	
+	public void update() {
+		for(int i=0; i<enemies.size(); i++) {
+			Enemy enemy = enemies.get(i);
+			if(player.eat(enemy)) {
+				eatenEnemies.add(enemy);
+			}
+			else {
+				if(enemy.eat(player)) {
+					player.setAlivePlayer(false);
+				}
+				enemy.setDestination();
+				enemy.update();
+			}
+		}
+		enemies.removeAll(eatenEnemies);
+		eatenEnemies.clear();
+		player.update();
+	}
+	
+	public void restart() {
+		player.reset();
+		this.enemies.clear();
+		for (int i = 0; i < player.getLevel()*10; i++) {
+			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet, images.get(randomEnemyImage(1,20)) ) );
+		}
 	}
 	
 	@Override
 	public void render() {
 		// TODO Render everything on this world
-		
+		player.render();
+		for (Enemy e : enemies) {
+			e.render();
+		}
+	}
+	
+	public int randomEnemyImage(int max, int min){
+		int number = min + (int)(Math.random() * ((max - min) + 1));		
+		return number;
 	}
 }

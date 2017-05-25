@@ -8,9 +8,14 @@ import processing.core.PVector;
 public class Player extends AbstractUnit {
 
 	// TODO Additional attributes (if any)
+	private boolean alivePlayer;
+	private PImage image;
 	
-	public Player(float r, PApplet display) {
-		super(display.width / 2, display.height / 2, r, display);
+	public Player(PApplet display, PImage image) {
+		super(display.width/2, display.height/2, 16, display);
+		level = 1;
+		alivePlayer = true;
+		this.image = image;
 	}
 	
 	@Override
@@ -22,10 +27,27 @@ public class Player extends AbstractUnit {
 		super.update();
 	}
 	
+	public void setAlivePlayer(boolean b) {
+		alivePlayer = b;
+	}
+	
+	public boolean getAlivePlayer() {
+		return alivePlayer;
+	}
+	
+	public void reset() {
+		alivePlayer = true;
+		level = 1;
+		radius = 16;
+		velocity = new PVector();
+		position = new PVector(display.width/2, display.height/2);
+	}
+	
 	@Override
 	public void render() {
 		// TODO Render desired image
-		
+		display.image(image, position.x, position.y);
+
 		// Temporary rendering implementation for testing purposes
 		display.fill(255);
 		super.render();
