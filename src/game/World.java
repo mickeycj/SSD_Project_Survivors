@@ -18,6 +18,8 @@ public class World implements Component {
 	private final float[] enemySizes = {15f, 22.5f, 30f, 37.5f, 45};
 	private final int[][] enemyLimitsPerLevel = {{8, 5, 2, 0, 0}, {3, 5, 5, 3, 0}, {2, 3, 5, 7, 5}};
 	
+	private int highScore;
+	
 	public World(PApplet pApplet, ArrayList<PImage> images) {
 		this.pApplet = pApplet;
 		this.enemyPool = new ArrayList<>();
@@ -32,6 +34,18 @@ public class World implements Component {
 	
 	public boolean isPlayerAlive() {
 		return player.isAlive();
+	}
+	
+	public int getPlayerLevel() {
+		return player.getLevel();
+	}
+	
+	public int getPlayerScore() {
+		return player.getScore();
+	}
+	
+	public int getHighScore() {
+		return highScore;
 	}
 	
 	public boolean isNumEnemiesTooLow() {
@@ -61,6 +75,9 @@ public class World implements Component {
 		player.reset();
 		enemyPool.addAll(enemies);
 		enemies.clear();
+		for (Enemy enemy : enemyPool) {
+			enemy.reset();
+		}
 		for (int i = 0; i < enemyCounts.length; i++) {
 			enemyCounts[i] = 0;
 		}
@@ -71,7 +88,8 @@ public class World implements Component {
 			int index = (int)(Math.random() * enemyPool.size());
 			Enemy enemy = enemyPool.get(index);
 			enemyPool.remove(index);
-			enemy.setPosition((float)(Math.random() * pApplet.width), (float)(123 + Math.random() * (pApplet.height - 123)));
+			float[] position = randomPosition();
+			enemy.setPosition(position[0], position[1]);
 			enemy.setRadiusAndSize(level);
 			enemies.add(enemy);
 			enemyCounts[level-1]++;
@@ -86,6 +104,13 @@ public class World implements Component {
 		return sum;
 	}
 	
+	private float[] randomPosition() {
+		float x = (float)(Math.random() * pApplet.width);
+		float y = (float)(123 + Math.random() * (pApplet.height - 123));
+		return (x > pApplet.width / 2 - 250 && x < pApplet.width / 2 + 250 && y > pApplet.height / 2 - 33 && y < pApplet.height / 2 + 273) ?
+				randomPosition() : new float[] {x, y};
+	}
+	
 	@Override
 	public void update() {
 		for (int i = 0; i < enemies.size(); i++) {
@@ -96,6 +121,9 @@ public class World implements Component {
 				}
 				enemyPool.add(enemy);
 				enemyCounts[enemy.getLevel()-1]--;
+				if (player.getScore() > highScore) {
+					highScore = player.getScore();
+				}
 			} else {
 				if (enemy.eat(player)) {
 					player.die();

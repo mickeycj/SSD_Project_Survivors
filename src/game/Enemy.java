@@ -13,28 +13,33 @@ public class Enemy extends AbstractUnit {
 		super(0, 0, 0, 0, pApplet, image);
 		this.setDestination();
 	}
-
+	
 	public void setDestination() {
 		destination = new PVector((int)(Math.random() * pApplet.width), (int)(Math.random() * pApplet.height));
 	}
 	
 	public void setRadiusAndSize(int lvl) {
-		radius = 15 + (lvl - 1) * 7.5f;
+		radius = (lvl - 1) * 7.5f + 15f;
 		level = lvl;
 		switch (level) {
 			case 1 :
+				value = 1;
 				color = 0xFFE5E19C;
 				break;
 			case 2 :
+				value = 3;
 				color = 0xFF9BB37E;
 				break;
 			case 3 :
+				value = 5;
 				color = 0xFF85ADAF;
 				break;
 			case 4 :
+				value = 10;
 				color = 0xFFB28077;
 				break;
 			case 5 :
+				value = 20;
 				color = 0xFF9B87AA;
 				break;
 			default :
@@ -44,9 +49,10 @@ public class Enemy extends AbstractUnit {
 	@Override
 	public void reset() {
 		super.reset();
+		position.x = position.y = radius = 0;
 		setDestination();
 	}
-
+	
 	@Override
 	public void update() {
 		if (Math.abs(destination.x - position.x) < 1 && Math.abs(destination.y - position.y) < 1) {

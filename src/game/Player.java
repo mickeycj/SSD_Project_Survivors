@@ -1,12 +1,15 @@
 package game;
 
 import base.AbstractUnit;
+import base.Unit;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 
 public class Player extends AbstractUnit {
 
+	private int score;
+	
 	private boolean alive;
 	
 	public Player(PApplet pApplet, PImage image) {
@@ -27,17 +30,34 @@ public class Player extends AbstractUnit {
 		}
 	}
 	
-	public void die() {
-		alive = false;
+	public int getScore() {
+		return score;
 	}
 	
 	public boolean isAlive() {
 		return alive;
 	}
 	
+	public void die() {
+		alive = false;
+	}
+	
+	@Override
+	public boolean eat(Unit other) {
+		if (super.eat(other)) {
+			score += other.getValue();
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public void reset() {
 		super.reset();
+		position.x = pApplet.width / 2;
+		position.y = pApplet.height / 2 + 61.5f;
+		radius = 16;
+		score = 0;
 		alive = true;
 	}
 	
@@ -48,6 +68,7 @@ public class Player extends AbstractUnit {
 		velocity.lerp(newVector, .5f);
 		super.update();
 	}
+	
 	@Override
 	public void render() {
 		pApplet.fill(color);
