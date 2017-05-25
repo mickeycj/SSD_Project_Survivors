@@ -6,7 +6,7 @@ import processing.core.PImage;
 import processing.core.PVector;
  
 public class Enemy extends AbstractUnit {
- 
+  
     // TODO Additional attributes (if any)
     private PVector destination;
    
@@ -29,5 +29,5 @@ public class Enemy extends AbstractUnit {
         newVelocity.setMag(level);
         velocity.lerp(newVelocity, .2f);
         super.update();
-    }  
+    }
 }

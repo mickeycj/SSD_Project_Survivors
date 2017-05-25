@@ -7,7 +7,7 @@ import base.Component;
 import processing.core.*;
  
 public class World implements Component {
- 
+  
     // TODO World's attributes
     private PApplet pApplet;
    

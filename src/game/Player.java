@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Color;
+
 import base.AbstractUnit;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -11,9 +13,9 @@ public class Player extends AbstractUnit {
 	private boolean alivePlayer;
 	
 	public Player(PApplet display, PImage image) {
-        super(display.width/2, display.height/2, 16, 1, display, image);
-        alivePlayer = true;
-    }
+      super(display.width/2, display.height/2, 16, 1, display, image);
+      alivePlayer = true;
+  }
 	
 	@Override
 	public void update() {
@@ -25,8 +27,15 @@ public class Player extends AbstractUnit {
 	}
 	
 	public void levelUp() {
-        level++;
-    }
+     level++;
+     if (level == 1) {
+         color = Color.YELLOW.getRGB();
+     } else if (level == 2) {
+         color = Color.CYAN.getRGB();
+     } else if (level == 3) {
+         color = Color.PINK.getRGB();
+     }
+  }
 	
 	public void setAlivePlayer(boolean b) {
 		alivePlayer = b;
