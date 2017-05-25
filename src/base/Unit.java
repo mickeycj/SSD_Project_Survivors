@@ -11,6 +11,6 @@ public interface Unit extends Component {
 	int getLevel();
 	
 	boolean eat(Unit other);
-	
+
 	void update();
 }

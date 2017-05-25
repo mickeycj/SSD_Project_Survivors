@@ -10,13 +10,13 @@ import processing.core.PVector;
 public class Player extends AbstractUnit {
 
 	// TODO Additional attributes (if any)
-	private boolean alivePlayer;
-	
+	private boolean alive;
+
 	public Player(PApplet display, PImage image) {
-      super(display.width/2, display.height/2, 16, 1, display, image);
-      alivePlayer = true;
-  }
-	
+		super(display.width / 2, display.height / 2, 16, 1, display, image);
+		alive = true;
+	}
+
 	@Override
 	public void update() {
 		// TODO Implement player movement according to mouse input
@@ -25,31 +25,31 @@ public class Player extends AbstractUnit {
 		velocity.lerp(newVector, .5f);
 		super.update();
 	}
-	
+
 	public void levelUp() {
-     level++;
-     if (level == 1) {
-         color = Color.YELLOW.getRGB();
-     } else if (level == 2) {
-         color = Color.CYAN.getRGB();
-     } else if (level == 3) {
-         color = Color.PINK.getRGB();
-     }
-  }
-	
-	public void setAlivePlayer(boolean b) {
-		alivePlayer = b;
+		level++;
+		if (level == 1) {
+			color = Color.YELLOW.getRGB();
+		} else if (level == 2) {
+			color = Color.CYAN.getRGB();
+		} else if (level == 3) {
+			color = Color.PINK.getRGB();
+		}
 	}
-	
-	public boolean getAlivePlayer() {
-		return alivePlayer;
+
+	public void die() {
+		alive = false;
 	}
-	
+
+	public boolean isAlive() {
+		return alive;
+	}
+
 	public void reset() {
-		alivePlayer = true;
+		alive = true;
 		level = 1;
 		radius = 16;
 		velocity = new PVector();
-		position = new PVector(display.width/2, display.height/2);
+		position = new PVector(display.width / 2, display.height / 2);
 	}
 }
