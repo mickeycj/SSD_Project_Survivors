@@ -12,6 +12,8 @@ public class World implements Component {
 	
 	private Player player;
 	private ArrayList<Enemy> enemies;
+	private final int[] enemiesLimit = { 5, 4, 3, 2, 1};
+	private final int[] enemiesCount;
 	private ArrayList<Enemy> eatenEnemies;
 	
 	// TODO Create an appropriate World constructor
@@ -19,8 +21,16 @@ public class World implements Component {
 		this.pApplet = pApplet;
 		this.player = new Player(pApplet);
 		this.enemies = new ArrayList<>();
-		for (int i = 0; i < player.getLevel()*10; i++) {
-			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet ) );
+		this.enemiesCount = new int[5];
+		this.eatenEnemies = new ArrayList<>();
+		
+		int level = 1;
+		for (int i = 0; i < player.getLevel()*12; i++) {
+			if(enemiesCount[level - 1] == enemiesLimit[level - 1]) {
+				level++;
+			}
+			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, pApplet , level) );
+			enemiesCount[level-1]++;
 		}
 	}
 	
@@ -34,7 +44,15 @@ public class World implements Component {
 	}
 	
 	public void addEnemy() {
-		enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet ));
+		if(enemies.size() < player.getLevel()*10) {
+			for (int i = 1; i <= player.getLevel()+2; i++) {
+				if(enemiesCount[i - 1] != enemiesLimit[i - 1]) {
+					this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, pApplet , i) );
+					enemiesCount[i-1]++;
+				}
+				
+			}
+		}
 	}
 	
 	public void update() {
@@ -42,12 +60,16 @@ public class World implements Component {
 			Enemy enemy = enemies.get(i);
 			if(player.eat(enemy)) {
 				eatenEnemies.add(enemy);
+				player.setEatCount();
+				enemiesCount[enemy.getLevel()-1]--;
 			}
 			else {
 				if(enemy.eat(player)) {
 					player.setAlivePlayer(false);
 				}
-				enemy.setDestination();
+				if((pApplet.frameCount + i*100) %120 == 0) {
+					enemy.setDestination();
+				}
 				enemy.update();
 			}
 		}
@@ -60,7 +82,7 @@ public class World implements Component {
 		player.reset();
 		this.enemies.clear();
 		for (int i = 0; i < player.getLevel()*10; i++) {
-			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, (float)Math.random()*(player.getLevel()+2), pApplet ) );
+			this.enemies.add( new Enemy( (float)Math.random()*pApplet.width, (float)Math.random()*pApplet.height, pApplet , 1) );
 		}
 	}
 	
