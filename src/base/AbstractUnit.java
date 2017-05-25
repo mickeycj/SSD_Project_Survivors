@@ -35,7 +35,7 @@ public abstract class AbstractUnit implements Unit {
         } else if (level == 5) {
             color = Color.RED.getRGB();
         }
-        this.image = image;
+    this.image = image;
 	}
 	
 	@Override
@@ -71,9 +71,9 @@ public abstract class AbstractUnit implements Unit {
 	@Override
 	public void render() {
 		display.stroke(color);
-        display.strokeWeight(1.5f);
-        display.noFill();
-        display.ellipse(position.x, position.y, radius * 2.5f, radius * 2.5f);
-        display.image(image, position.x, position.y, radius * 2, radius * 2);
+    display.strokeWeight(1.5f);
+    display.noFill();
+    display.ellipse(position.x, position.y, radius * 2.5f, radius * 2.5f);
+    display.image(image, position.x, position.y, radius * 2, radius * 2);
 	}
 }
