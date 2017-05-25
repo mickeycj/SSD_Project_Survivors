@@ -2,7 +2,6 @@ package game;
 
 import base.AbstractUnit;
 import processing.core.PApplet;
-import processing.core.PImage;
 import processing.core.PVector;
 
 public class Player extends AbstractUnit {
@@ -10,12 +9,14 @@ public class Player extends AbstractUnit {
 	// TODO Additional attributes (if any)
 	private boolean alivePlayer;
 	private PImage image;
+	private int eatCount;
 	
 	public Player(PApplet display, PImage image) {
 		super(display.width/2, display.height/2, 16, display);
 		level = 1;
 		alivePlayer = true;
 		this.image = image;
+		eatCount = 0;
 	}
 	
 	@Override
@@ -34,9 +35,19 @@ public class Player extends AbstractUnit {
 	public boolean getAlivePlayer() {
 		return alivePlayer;
 	}
+  
+	public void setEatCount() {
+		eatCount++;
+		if(eatCount >= 10) {
+			level++;
+			eatCount = 0;
+			System.out.println(level);
+		}
+	}
 	
 	public void reset() {
 		alivePlayer = true;
+		eatCount = 0;
 		level = 1;
 		radius = 16;
 		velocity = new PVector();

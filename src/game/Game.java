@@ -12,7 +12,7 @@ public class Game {
 	private World world;
 	
 	// TODO Create an appropriate Game constructor
-	public Game(PApplet pApplet) {
+	public Game(PApplet pApplet, ArrayList<PImage> images) {
 		this.pApplet = pApplet;
 		images = new ArrayList<PImage>();
 		world = new World(pApplet, images);
@@ -20,7 +20,15 @@ public class Game {
 	
 	// TODO Update Game's state(s)
 	public boolean isEnd() {
-		return world.isPlayerAlive();
+		return !world.isPlayerAlive();
+	}
+	
+	public void update() {
+		world.update();
+		world.render();
+		if(pApplet.frameCount % 600 == 0) {
+			world.addEnemy();
+		}
 	}
 	
 	public void restart() {

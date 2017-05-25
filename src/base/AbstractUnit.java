@@ -40,7 +40,7 @@ public abstract class AbstractUnit implements Unit {
 	@Override
 	public boolean eat(Unit other) {
 		float dist = PVector.dist(position, other.getPosition());
-		if (dist < radius * .6f + other.getRadius() && radius > other.getRadius()) {
+		if (dist < radius * .8f + other.getRadius() && radius > other.getRadius()) {
 			radius += .15f * other.getRadius();
 			return true;
 		}
