@@ -22,6 +22,8 @@ Survivors is a game in which the player's goal is to eat as many enemies as poss
   - We try to specialize each class as much as possible, spliting the program into many independent parts, such as Game, World, Player, Enemy, as well as the base classes.
 * Open/Closed Principle
   - Since all untis may differ in their behaviors, they can be extended to create more variations. However, they all still follows the same general pattern specified by its superclass.
+* Interface-Segregation Principle
+  - We try to limit each class's knowledge of interfaces' methods as much as possible. For example, while World class shares some updating and rendering methods with Unit classes, it does not share other methods, so we extract both update() and render() methods to another interface which can be used by any classes.
 * Polymorphism
   - Each object behaves differently, but with the expected result from the variations of their methods' implementations.
 
