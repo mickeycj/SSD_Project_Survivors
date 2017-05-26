@@ -1,6 +1,9 @@
 # Survivors!
 Survivors is a game in which the player's goal is to eat as many enemies as possible while trying to stay alive and making high scores.
 
+## Installation
+In order to guarantee successful running, please clone/download the whole repository and run the file via command line while in the repository's folder.
+
 ## Rules/Features
 - Your unit moves according to your mouse movements
 - You can only eat smaller enemies
