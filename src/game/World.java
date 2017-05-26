@@ -9,10 +9,10 @@ import processing.core.PImage;
 public class World implements Component {
 
 	private final PApplet pApplet;
-	private final ArrayList<Enemy> enemyPool;
 	
 	private final Player player;
 	private final ArrayList<Enemy> enemies;
+	private final ArrayList<Enemy> enemyPool;
 	
 	private final int[] enemyCounts;
 	private final float[] enemySizes = {15f, 22.5f, 30f, 37.5f, 45};
@@ -20,13 +20,13 @@ public class World implements Component {
 	
 	private int highScore;
 	
-	public World(PApplet pApplet, ArrayList<PImage> images) {
+	public World(PApplet pApplet, ArrayList<PImage> faces) {
 		this.pApplet = pApplet;
 		this.enemyPool = new ArrayList<>();
-		for (int i = 1; i < images.size(); i++) {
-			this.enemyPool.add(new Enemy(pApplet, images.get(i)));
+		for (int i = 1; i < faces.size(); i++) {
+			this.enemyPool.add(new Enemy(pApplet, faces.get(i)));
 		}
-		this.player = new Player(pApplet, images.get(0));
+		this.player = new Player(pApplet, faces.get(0));
 		this.enemies = new ArrayList<>();
 		this.enemyCounts = new int[5];
 		initEnemies();
@@ -53,17 +53,19 @@ public class World implements Component {
 	}
 	
 	public void addRandomEnemy() {
-		for (int level = 1; level <= player.getLevel() + 2; level++) {
-			if (enemyCounts[level-1] != enemyLimitsPerLevel[player.getLevel()-1][level-1]) {
-				int index = (int)(Math.random() * enemyPool.size());
-				Enemy enemy = enemyPool.get(index);
-				enemyPool.remove(index);
-				enemy.setPosition((float)(Math.random() * pApplet.width), (float)(123 + Math.random() * (pApplet.height - 123)));
-				enemy.setRadiusAndSize(level);
-				enemies.add(enemy);
-				enemyCounts[level-1]++;
-			}
+		if (!enemyPool.isEmpty()) {
+			for (int level = 1; level <= player.getLevel() + 2; level++) {
+				if (enemyCounts[level-1] != enemyLimitsPerLevel[player.getLevel()-1][level-1]) {
+					int index = (int)(Math.random() * enemyPool.size());
+					Enemy enemy = enemyPool.get(index);
+					enemyPool.remove(index);
+					enemy.setPosition((float)(Math.random() * pApplet.width), (float)(123 + Math.random() * (pApplet.height - 123)));
+					enemy.setRadiusAndSize(level);
+					enemies.add(enemy);
+					enemyCounts[level-1]++;
+				}
 
+			}
 		}
 	}
 	
@@ -98,8 +100,8 @@ public class World implements Component {
 	
 	private int limitOfLevel(int level) {
 		int sum = 0;
-		for (int i = 0; i < enemyLimitsPerLevel[level - 1].length; i++) {
-			sum += enemyLimitsPerLevel[level - 1][i];
+		for (int i = 0; i < enemyLimitsPerLevel[level-1].length; i++) {
+			sum += enemyLimitsPerLevel[level-1][i];
 		}
 		return sum;
 	}
@@ -139,8 +141,8 @@ public class World implements Component {
 	
 	@Override
 	public void render() {
-		for (Enemy e : enemies) {
-			e.render();
+		for (Enemy enemy : enemies) {
+			enemy.render();
 		}
 		player.render();
 	}

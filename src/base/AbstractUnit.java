@@ -7,7 +7,7 @@ import processing.core.PVector;
 public abstract class AbstractUnit implements Unit {
 
 	protected final PApplet pApplet;
-	protected final PImage image;
+	protected final PImage face;
 	
 	protected final PVector position;
 	protected final PVector velocity;
@@ -17,9 +17,9 @@ public abstract class AbstractUnit implements Unit {
 	protected int value;
 	protected int color;
 	
-	protected AbstractUnit(float x, float y, float r, int l, PApplet pApplet, PImage image) {
+	protected AbstractUnit(float x, float y, float r, int l, PApplet pApplet, PImage face) {
 		this.pApplet = pApplet;
-		this.image = image;
+		this.face = face;
 		this.position = new PVector(x, y);
 		this.velocity = new PVector();
 		this.radius = r;
@@ -89,6 +89,6 @@ public abstract class AbstractUnit implements Unit {
 		pApplet.stroke(color);
 		pApplet.strokeWeight(1.5f);
 		pApplet.ellipse(position.x, position.y, radius * 2.5f, radius * 2.5f);
-		pApplet.image(image, position.x, position.y, radius * 2, radius * 2);
+		pApplet.image(face, position.x, position.y, radius * 2, radius * 2);
 	}
 }

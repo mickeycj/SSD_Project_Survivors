@@ -9,13 +9,9 @@ public class Enemy extends AbstractUnit {
 
 	private PVector destination;
 	
-	public Enemy(PApplet pApplet, PImage image) {
-		super(0, 0, 0, 0, pApplet, image);
+	public Enemy(PApplet pApplet, PImage face) {
+		super(0, 0, 0, 0, pApplet, face);
 		this.setDestination();
-	}
-	
-	public void setDestination() {
-		destination = new PVector((int)(Math.random() * pApplet.width), (int)(Math.random() * pApplet.height));
 	}
 	
 	public void setRadiusAndSize(int lvl) {
@@ -44,6 +40,10 @@ public class Enemy extends AbstractUnit {
 				break;
 			default :
 		}
+	}
+	
+	public void setDestination() {
+		destination = new PVector((int)(Math.random() * pApplet.width), (int)(Math.random() * pApplet.height));
 	}
 	
 	@Override

@@ -5,14 +5,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import game.*;
+import game.Game;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 
-public class SurvivorsGame extends PApplet {
+public class Survivors extends PApplet {
 
-	private ArrayList<PImage> images;
+	private ArrayList<PImage> faces;
 	private PImage startScreen;
 	private PImage background;
 	private PImage gameOverScreen;
@@ -22,17 +22,16 @@ public class SurvivorsGame extends PApplet {
 	@Override
 	public void settings() {
 		size(1080, 640);
+		faces = new ArrayList<>();
 		startScreen = loadImage("res/images/backgrounds/start.png");
 		background = loadImage("res/images/backgrounds/background.png");
 		gameOverScreen = loadImage("res/images/backgrounds/over.png");
-		images = new ArrayList<>();
-		File directory = new File("res/images/faces");
-		for (File file : directory.listFiles()) {
+		for (File file : new File("res/images/faces").listFiles()) {
 			if (file.getName().endsWith(".png")) {
 				if (file.getName().equals("0.png")) {
-					images.add(0, loadImage(file.getPath()));
+					faces.add(0, loadImage(file.getPath()));
 				} else {
-					images.add(loadImage(file.getPath()));
+					faces.add(loadImage(file.getPath()));
 				}
 			}
 		}
@@ -47,19 +46,19 @@ public class SurvivorsGame extends PApplet {
 		}
 		imageMode(CENTER);
 		image(startScreen, width / 2, height / 2);
-		game = new Game(this, images);
+		game = new Game(this, faces);
 	}
 	
 	@Override
 	public void draw() {
 		if (game.isStarted()) {
-			image(background, width / 2, height / 2);
 			if (!game.isEnded()) {
+				image(background, width / 2, height / 2);
 				game.update();
 			} else {
 				image(gameOverScreen, width / 2, height / 2);
+				game.showStats();
 			}
-			game.showStats();
 		}
 	}
 	
@@ -74,6 +73,6 @@ public class SurvivorsGame extends PApplet {
 	
 	/* Main method */
 	public static void main(String[] args) {
-		PApplet.main("SurvivorsGame");
+		PApplet.main("Survivors");
 	}
 }

@@ -12,9 +12,17 @@ public class Player extends AbstractUnit {
 	
 	private boolean alive;
 	
-	public Player(PApplet pApplet, PImage image) {
-		super(pApplet.width / 2, pApplet.height / 2 + 61.5f, 16, 1, pApplet, image);
+	public Player(PApplet pApplet, PImage face) {
+		super(pApplet.width / 2, pApplet.height / 2 + 61.5f, 16, 1, pApplet, face);
 		this.alive = true;
+	}
+	
+	public int getScore() {
+		return score;
+	}
+	
+	public boolean isAlive() {
+		return alive;
 	}
 	
 	public void levelUp() {
@@ -28,14 +36,6 @@ public class Player extends AbstractUnit {
 				color = 0xFF85ADAF;
 			}
 		}
-	}
-	
-	public int getScore() {
-		return score;
-	}
-	
-	public boolean isAlive() {
-		return alive;
 	}
 	
 	public void die() {
