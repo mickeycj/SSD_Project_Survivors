@@ -26,19 +26,19 @@ public class Game {
 		return !world.isPlayerAlive();
 	}
 
-	public void showStats() {
-		pApplet.fill(0xFF666666);
-		pApplet.textSize(35);
-		pApplet.text(world.getPlayerScore(), 805, 378);
-		pApplet.text(world.getHighScore(), 896, 415);
-	}
-
 	public void start() {
 		started = true;
 	}
 
 	public void restart() {
 		world.reset();
+	}
+
+	public void showStats() {
+		pApplet.fill(0xFF666666);
+		pApplet.textSize(35);
+		pApplet.text(world.getPlayerScore(), 805, 378);
+		pApplet.text(world.getHighScore(), 896, 415);
 	}
 
 	public void update() {

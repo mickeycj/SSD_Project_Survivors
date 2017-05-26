@@ -28,12 +28,20 @@ public class Player extends AbstractUnit {
 	public void levelUp() {
 		if (level < 3) {
 			level++;
-			if (level == 1) {
-				color = 0xFFE5E19C;
-			} else if (level == 2) {
-				color = 0xFF9BB37E;
-			} else if (level == 3) {
-				color = 0xFF85ADAF;
+			switch (level) {
+				case 1 :
+					value = 1;
+					color = 0xFFE5E19C;
+					break;
+				case 2 :
+					value = 3;
+					color = 0xFF9BB37E;
+					break;
+				case 3 :
+					value = 5;
+					color = 0xFF85ADAF;
+					break;
+				default :
 			}
 		}
 	}
